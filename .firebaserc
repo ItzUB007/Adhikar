@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "adhikar-a9728": {
+      "hosting": {
+        "Adhikar": [
+          "adhikar-a9728"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "adhikar-a9728"
+  }
+}

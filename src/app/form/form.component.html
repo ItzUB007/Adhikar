@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-12">
+      
+        <form id="phoneNumberForm">
+        <h1> Citizen Case </h1>
+        
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" [(ngModel)]="this.phoneNumber" name="phoneNumber">
+
+        <div id="recaptcha-container"></div>
+
+        <button class="smallerButton sendOtp" type="button" (click)="sendLoginCode()">Send Otp</button>
+
+
+        <div *ngIf="windowRef.confirmationResult">  
+        <label for="otp">Otp:</label>
+        <input type="text" class="otp" [(ngModel)]="otp" name="otp">
+
+        <button class="smallerButton" type="button" (click)="verifyLoginCode()">Verify</button>
+
+        </div>
+
+        <p>{{errors}}</p>
+
+        </form>
+
+        <form [formGroup]="userData" (ngSubmit)="this.addUser()" *ngIf="this.verified" >
+
+        <fieldset>
+            
+          <legend><span class="number">1</span>Profile</legend>
+        
+          <label for="name">First Name:</label>
+          <input type="text" id="name" formControlName="firstName">
+          
+          <label for="name">Last Name:</label>
+          <input type="text" id="last_name" formControlName="lastName">
+
+          <label for="gender">Gender:</label>
+          <select id="gender" formControlName="gender">                
+              <option value="Male">Male</option>
+              <option value="Male">Female</option>
+              <option value="Male">Can't Say</option>
+          </select>
+          
+          <!--<label for="email">Email:</label>
+          <input type="email" id="mail" name="user_email">-->
+       
+          <!--<label for="password">Password:</label>
+          <input type="password" id="password"       name="user_password">-->
+        
+          <label for="dob">Date of Birth:</label>
+          <input type="date" id="dob" formControlName="dob" name="dob">
+          <!--<label for="dob">Age:</label><p>21</p>-->
+
+          <label for="state">State:</label>
+          <select id="state" formControlName="state">                
+              <option *ngFor="let state of this.states" value={{state}}>{{state}}</option>
+          </select>
+          
+          <label for="district">District:</label>
+          <select id="district" formControlName="district">                
+              <option *ngFor="let district of this.district" value={{district}}>{{district}}</option>
+          </select>
+
+          <label for="taluka">Taluka:</label>
+          <select id="taluka" formControlName="taluka">                
+              <option *ngFor="let taluka of this.taluka" value={{taluka}}>{{taluka}}</option>
+          </select>
+
+          <label for="religion">Religion:</label>
+          <select id="religion" formControlName="religion">                
+              <option *ngFor="let religion of this.religion" value={{religion}}>{{religion}}</option>
+          </select>
+
+          <label for="caste">Caste:</label>
+          <select id="caste" formControlName="caste">                
+              <option *ngFor="let caste of this.caste" value={{caste}}>{{caste}}</option>
+          </select>
+
+          <label for="maritalStatus">Marital Status:</label>
+          <select id="maritalStatus" formControlName="maritalStatus">                
+              <option *ngFor="let maritalStatus of this.maritalStatus" value={{maritalStatus}}>{{maritalStatus}}</option>
+          </select>
+
+        </fieldset>
+          
+        <button class="submit" type="submit">Next</button>
+        
+       </form>
+        </div>
+      </div>
