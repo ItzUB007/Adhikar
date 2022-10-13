@@ -46,7 +46,12 @@ export class FormComponent implements OnInit {
     taluka: "",
     religion: "",
     caste: "",
-    maritalStatus: ""
+    maritalStatus: "",
+    EPFO: new Boolean,
+    ESIC: new Boolean,
+    PAI: "",
+    Aadhar: new Boolean,
+    yrsOfResidence: new Number
   })
 
   phoneNumber:any;
@@ -64,7 +69,7 @@ export class FormComponent implements OnInit {
 
 
 
-  addUser(){
+  next(){
 
     //console.log(this.userData.value)
 
@@ -72,8 +77,73 @@ export class FormComponent implements OnInit {
       age: this.getAge(this.userData.get('dob')!.value)
     })
 
+    let form = document.querySelector("#userForm");
+
+    form?.classList.add("hide");
+
+    document.querySelector(".epfo")?.classList.remove("hide");
+
+    document.querySelector("#quesForm")?.classList.remove("hide");
+
     //let data = JSON.stringify(this.userData.value); 
 
+
+    /*this.firestore
+    .collection("user")
+    .add(this.userData.value)
+    .then(function(docRef:any) {
+       console.log(docRef.id);
+    })
+    .catch((error:any)=>{
+      console.log(error);
+    })*/
+
+  }
+
+  toEsic(input:any){
+
+    document.querySelector(".epfo")?.classList.add("hide");
+    document.querySelector(".esic")?.classList.remove("hide");
+
+    this.userData.patchValue({
+      EPFO: input
+    })
+
+  }
+  
+  toPai(input:any){
+
+    document.querySelector(".esic")?.classList.add("hide");
+    document.querySelector(".pai")?.classList.remove("hide");
+
+    this.userData.patchValue({
+      ESIC: input
+    })
+
+  }
+
+
+  toAadhar(input:any){
+    document.querySelector(".pai")?.classList.add("hide");
+    document.querySelector(".aadhar")?.classList.remove("hide");
+
+    this.userData.patchValue({
+      PAI: input
+    })
+  }
+
+  toYrsOfresidence(input:any){
+    document.querySelector(".aadhar")?.classList.add("hide");
+    document.querySelector(".yrsOfResidence")?.classList.remove("hide");
+
+    this.userData.patchValue({
+      Aadhar: input
+    })
+  }
+  
+  submitYrsOfResidence(){
+    document.querySelector(".yrsOfResidence")?.classList.add("hide");
+    //document.querySelector(".yrsOfresidence")?.classList.remove("hide");
 
     this.firestore
     .collection("user")
@@ -86,7 +156,6 @@ export class FormComponent implements OnInit {
     })
 
   }
-
 
   getAge(dateString:any) {
     var today = new Date();
@@ -105,7 +174,9 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
 
     this.windowRef = this.win.windowRef;
-    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container',{
+      size: "invisible"
+  });
 
     this.windowRef.recaptchaVerifier.render();
 
