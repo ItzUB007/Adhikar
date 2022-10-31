@@ -14,12 +14,14 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { DbService } from './db.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ResultsComponent } from './results/results.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent
+    FormComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

@@ -51,8 +51,489 @@ export class FormComponent implements OnInit {
     ESIC: new Boolean,
     PAI: "",
     Aadhar: new Boolean,
-    yrsOfResidence: new Number
-  })
+    yrsOfResidence: new Number,
+    ageOfDeceased: new Number,
+    natureOfJob: "",
+    natureOfJobOfDeceased: "",
+    occupation: "",
+    occupationOfDeceased: "",
+    yrsOfResidenceParent: new Number,
+    FAI: "",
+    voterId: "",
+    disabled: "",
+    percentageOfDisability: "",
+    qualification: "",
+    bank: "",
+    recentDeath: "",
+    breadWinner: "",
+    relationWithDeceased: "",
+    vaccine:  new Boolean,
+    firstDose: new Boolean,
+    secondDose: new Boolean,
+    boosterDose: new Boolean,
+    BOCW: "",
+    BOCWDeceased: "",
+    yrsOfBOCW: new Number,
+    pregnant: ""
+  });
+
+  done = false;
+
+  questions = [
+    {
+      name: "EPFO",
+      desc: "Are a Member of EPFO",
+      isHidden: false,
+      options : [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false",
+        }
+      ]
+    },
+    {
+      name: "ESIC",
+      desc: "Are a Member of ESIC",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "PAI",
+      desc: "What is your Personal Annual Income? (in Rupees)",
+      isHidden: true,
+      type: "number",
+    },
+    {
+      name: "Aadhar",
+      desc: "Do you have an Aadhar Card?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "yrsOfResidence",
+      desc: "For how many years have you been living in the State?",
+      isHidden: true,
+      type: "number"
+    },
+    {
+      name: "ageOfDeceased",
+      desc: "What was the Age of your spouse when he/she passed away?",
+      isHidden: true,
+      type: "number"
+    },
+    {
+      name: "natureOfJob",
+      desc: "Nature of Job",
+      isHidden: true,
+      options: [
+        {
+          desc: "Retired",
+          value: "Retired"
+        },
+        {
+          desc: "Unemployed",
+          value: "Unemployed"
+        },
+        {
+          desc: "Working",
+          value: "Working"
+        },
+        {
+          desc: "Student",
+          value: "Student"
+        },
+        {
+          desc: "Student and Working",
+          value: "Student and Working"
+        },
+      ]
+    },
+    {
+      name: "natureOfJobOfDeceased",
+      desc: "Nature of Job (of the deceased)?",
+      isHidden: true,
+      options: [
+        {
+          desc: "Retired",
+          value: "Retired"
+        },
+        {
+          desc: "Unemployed",
+          value: "Unemployed"
+        },
+        {
+          desc: "Working",
+          value: "Working"
+        },
+        {
+          desc: "Student",
+          value: "Student"
+        },
+        {
+          desc: "Student and Working",
+          value: "Student and Working"
+        },
+      ]
+    },
+    {
+      name: "occupation",
+      desc: "Occupation?",
+      isHidden: true,
+      options: [
+        {
+          desc: "Unemployed",
+          value: "Unemployed"
+        },
+        {
+          desc: "Student",
+          value: "Student"
+        },
+        {
+          desc: "Construction Worker",
+          value: "Construction Worker"
+        },
+      ]
+    },
+    {
+      name: "occupationOfDeceased",
+      desc: "Occupation (Of the deceased)?",
+      isHidden: true,
+      options: [
+        {
+          desc: "Unemployed",
+          value: "Unemployed"
+        },
+        {
+          desc: "Student",
+          value: "Student"
+        },
+        {
+          desc: "Construction Worker",
+          value: "Construction Worker"
+        },
+      ]
+    },
+    {
+      name: "occupationOfDeceased",
+      desc: "Occupation (Of the deceased)?",
+      isHidden: true,
+      options: [
+        {
+          desc: "Unemployed",
+          value: "Unemployed"
+        },
+        {
+          desc: "Student",
+          value: "Student"
+        },
+        {
+          desc: "Construction Worker",
+          value: "Construction Worker"
+        },
+      ]
+    },
+    {
+      name: "yrsOfResidenceParent",
+      desc: "For how many years your parents have you been living in the State?",
+      isHidden: true,
+      type: "number"
+    },
+    {
+      name: "FAI",
+      desc: "Family Annual Income?",
+      isHidden: true,
+      type: "number"
+    },
+    {
+      name: "voterId",
+      desc: "Do you have a Voter ID?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "disabled",
+      desc: "Are you disabled?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "percentageOfDisability",
+      desc: "Percentage of Disability?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "qualification",
+      desc: "Current Educational Qualifications?",
+      isHidden: true,
+      options: [
+        {
+          desc: "Upto Class I",
+          value: "Class I"
+        },
+        {
+          desc: "Upto Class VI",
+          value: "Class VI"
+        },
+        {
+          desc: "Upto Class IX",
+          value: "Class IX"
+        },
+        {
+          desc: "Upto Class X",
+          value: "Class X"
+        },
+        {
+          desc: "Upto Class XII",
+          value: "Class XII"
+        },
+        {
+          desc: "Graduate",
+          value: "Graduate"
+        },
+      ]
+    },
+    {
+      name: "bank",
+      desc: "Do you have a Bank Account?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "recentDeath",
+      desc: "Has there been a death in the past one year in your family?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "breadWinner",
+      desc: "Was the deceased the sole breadwinner of the family?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "relationWithDeceased",
+      desc: "Relationship with the deceased?",
+      isHidden: true,
+      options: [
+        {
+          desc: "Father",
+          value: "Father"
+        },
+        {
+          desc: "Mother",
+          value: "Mother"
+        },
+        {
+          desc: "Son",
+          value: "Son"
+        },
+        {
+          desc: "Daughter",
+          value: "Daughter"
+        },
+        {
+          desc: "Husband",
+          value: "Husband"
+        },
+        {
+          desc: "Wife",
+          value: "Wife"
+        },
+      ]
+    },
+    {
+      name: "vaccine",
+      desc: "Have you registered for the vaccine?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "firstDose",
+      desc: "Have you been given the first dose?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "secondDose",
+      desc: "Have you been given the second dose?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "boosterDose",
+      desc: "Have you been given the booster dose?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "BOCW",
+      desc: "Are you registered with BOCW Welfare Board?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "BOCWDeceased",
+      desc: "Was the deceased registered with the BOCW Welfare Board",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+    {
+      name: "yrsOfBOCW",
+      desc: "How long have you been registered with BOCW Welfare Board?",
+      isHidden: true,
+      type: "number"
+    },
+    {
+      name: "pregnant",
+      desc: "Are you pregnant?",
+      isHidden: true,
+      options: [
+        {
+          desc: "YES",
+          value: "true"
+        },
+        {
+          desc: "NO",
+          value: "false"
+        }
+      ]
+    },
+
+
+    
+
+  ];
 
   phoneNumber:any;
   otp:any;
@@ -72,7 +553,18 @@ export class FormComponent implements OnInit {
   next(){
 
     //console.log(this.userData.value)
-
+    /*if(this.userData.value.firstName && this.userData.value.lastName
+      && this.userData.value.gender
+      && this.userData.value.dob
+      && this.userData.value.age
+      && this.userData.value.state
+      && this.userData.value.district
+      && this.userData.value.taluka
+      && this.userData.value.religion
+      && this.userData.value.caste
+      && this.userData.value.maritalStatus
+    )
+    {*/
     this.userData.patchValue({
       age: this.getAge(this.userData.get('dob')!.value)
     })
@@ -81,10 +573,10 @@ export class FormComponent implements OnInit {
 
     form?.classList.add("hide");
 
-    document.querySelector(".epfo")?.classList.remove("hide");
+    //document.querySelector(".epfo")?.classList.remove("hide");
 
     document.querySelector("#quesForm")?.classList.remove("hide");
-
+ // }
     //let data = JSON.stringify(this.userData.value); 
 
 
@@ -100,62 +592,28 @@ export class FormComponent implements OnInit {
 
   }
 
-  toEsic(input:any){
-
-    document.querySelector(".epfo")?.classList.add("hide");
-    document.querySelector(".esic")?.classList.remove("hide");
-
-    this.userData.patchValue({
-      EPFO: input
-    })
-
-  }
-  
-  toPai(input:any){
-
-    document.querySelector(".esic")?.classList.add("hide");
-    document.querySelector(".pai")?.classList.remove("hide");
-
-    this.userData.patchValue({
-      ESIC: input
-    })
-
+  checkLast(i:any){
+    console.log(i);
+    if(i+1 == this.questions.length){
+      this.done = true;
+    }
   }
 
-
-  toAadhar(input:any){
-    document.querySelector(".pai")?.classList.add("hide");
-    document.querySelector(".aadhar")?.classList.remove("hide");
-
-    this.userData.patchValue({
-      PAI: input
-    })
-  }
-
-  toYrsOfresidence(input:any){
-    document.querySelector(".aadhar")?.classList.add("hide");
-    document.querySelector(".yrsOfResidence")?.classList.remove("hide");
-
-    this.userData.patchValue({
-      Aadhar: input
-    })
-  }
-  
-  submitYrsOfResidence(){
-    document.querySelector(".yrsOfResidence")?.classList.add("hide");
-    //document.querySelector(".yrsOfresidence")?.classList.remove("hide");
-
+  submitInfo(){
+    console.log(this.userData.value.EPFO);
     this.firestore
     .collection("user")
     .add(this.userData.value)
     .then(function(docRef:any) {
        console.log(docRef.id);
+       console.log("Submitted");
     })
     .catch((error:any)=>{
       console.log(error);
     })
-
   }
+
+
 
   getAge(dateString:any) {
     var today = new Date();

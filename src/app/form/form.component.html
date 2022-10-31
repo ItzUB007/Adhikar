@@ -31,13 +31,13 @@
                 <legend><span class="number">1</span>Profile</legend>
 
                 <label for="name">First Name:</label>
-                <input type="text" id="name" formControlName="firstName">
+                <input type="text" id="name" formControlName="firstName" [required]="true">
 
                 <label for="name">Last Name:</label>
-                <input type="text" id="last_name" formControlName="lastName">
+                <input type="text" id="last_name" formControlName="lastName" required>
 
                 <label for="gender">Gender:</label>
-                <select id="gender" formControlName="gender">
+                <select id="gender" formControlName="gender" required>
                     <option value="Male">Male</option>
                     <option value="Male">Female</option>
                     <option value="Male">Can't Say</option>
@@ -50,36 +50,36 @@
           <input type="password" id="password"       name="user_password">-->
 
                 <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" formControlName="dob" name="dob">
+                <input type="date" id="dob" formControlName="dob" name="dob" required>
                 <!--<label for="dob">Age:</label><p>21</p>-->
 
                 <label for="state">State:</label>
-                <select id="state" formControlName="state">
+                <select id="state" formControlName="state" required>
                     <option *ngFor="let state of this.states" value={{state}}>{{state}}</option>
                 </select>
 
                 <label for="district">District:</label>
-                <select id="district" formControlName="district">
+                <select id="district" formControlName="district" required>
                     <option *ngFor="let district of this.district" value={{district}}>{{district}}</option>
                 </select>
 
                 <label for="taluka">Taluka:</label>
-                <select id="taluka" formControlName="taluka">
+                <select id="taluka" formControlName="taluka" required>
                     <option *ngFor="let taluka of this.taluka" value={{taluka}}>{{taluka}}</option>
                 </select>
 
                 <label for="religion">Religion:</label>
-                <select id="religion" formControlName="religion">
+                <select id="religion" formControlName="religion" required>
                     <option *ngFor="let religion of this.religion" value={{religion}}>{{religion}}</option>
                 </select>
 
                 <label for="caste">Caste:</label>
-                <select id="caste" formControlName="caste">
+                <select id="caste" formControlName="caste" required>
                     <option *ngFor="let caste of this.caste" value={{caste}}>{{caste}}</option>
                 </select>
 
                 <label for="maritalStatus">Marital Status:</label>
-                <select id="maritalStatus" formControlName="maritalStatus">
+                <select id="maritalStatus" formControlName="maritalStatus" required>
                     <option *ngFor="let maritalStatus of this.maritalStatus" value={{maritalStatus}}>{{maritalStatus}}
                     </option>
                 </select>
@@ -92,7 +92,24 @@
 
         <form [formGroup]="userData" id="quesForm" class="hide">
 
-            <div class="epfo hide">
+            <ng-container *ngFor="let item of questions;let i = index">
+                <div [hidden]="item.isHidden"> {{item.desc}} 
+
+                    <input *ngIf="item.type" type={{item.type}} formControlName={{item.name}} >
+                    
+                    <select *ngIf="!item.type" name="options" formControlName={{item.name}}>
+                            <!--<option [defaultSelected]="true" disabled>Enter your choice</option>-->
+                            <option *ngFor="let option of item.options" [ngValue]="option.value">{{option.desc}}</option>
+                        </select> <br>
+                    <button *ngIf="questions[i]" (click)="questions[i].isHidden = true;questions[i + 1] ?questions[i + 1].isHidden = false : false; checkLast(i);">Next</button>   
+
+                </div>
+
+            </ng-container>
+
+            <button *ngIf="this.done" class="Qbuttons" type="submit" (click)="submitInfo()">Submit</button>
+
+            <!--<div class="epfo hide">
 
                 <h5>Are you a member of EPFO?</h5>
 
@@ -103,60 +120,8 @@
 
                 </div>
 
-            </div>
+            </div>-->
 
-            <div class="esic hide ">
-
-                <h5>Are you a member of ESIC?</h5>
-
-                <div class="qFormOptions">
-
-                    <input type="button" value="YES" placeholder="YES" class="Qbuttons" (click)="toPai(true)">
-                    <input type="button" value="NO" placeholder="NO" class="Qbuttons" (click)="toPai(false)">
-
-                </div>
-
-            </div>
-
-            <div class="pai hide">
-
-                <h5>What's your Personal Annual Income?</h5>
-
-                <div class="qFormOptions">
-
-                    <input type="button" value="Less than 1 Lakh" class="Qbuttons" (click)="toAadhar('<100000')">
-                    <input type="button" value="More than 1 Lakh" class="Qbuttons" (click)="toAadhar('>100000')">
-
-                </div>
-
-            </div>
-
-            <div class="aadhar hide">
-
-                <h5>Do you have an Aadhar Card</h5>
-
-                <div class="qFormOptions">
-
-                    <input type="button" value="YES" class="Qbuttons" (click)="toYrsOfresidence(true)">
-                    <input type="button" value="NO" class="Qbuttons" (click)="toYrsOfresidence(false)">
-
-                </div>
-
-            </div>
-
-            <div class="yrsOfResidence hide">
-
-                <h5>Since how many years have you been staying in the state</h5>
-
-                <div class="qFormOptions">
-
-                    <input type="number" formControlName="yrsOfResidence">
-
-                </div>
-
-                <button type="submit" class="Qbuttons" (click)="submitYrsOfResidence()">Submit your Responses</button>
-
-            </div>
 
 
         </form>
