@@ -1,0 +1,35 @@
+.boxesOuter{
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    background-color: rgb(215, 215, 215);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.box{
+    height: auto;
+    width: 200px;
+    transition: all 1s;
+    background-color: #4bc970;
+    margin: 10px 10px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 10px 10px 10px #97979761;
+    border: 3px white solid;
+    h3{
+        color: white;
+        font-size: 15px;
+        margin: 20px 5px;
+    }
+    p{
+        color: white;
+        font-size: 10px;
+    }
+    
+}
+
+.box:hover{
+    transform: scale(1.2);
+}

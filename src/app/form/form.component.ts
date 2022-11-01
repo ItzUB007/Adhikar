@@ -5,6 +5,8 @@ import { FormBuilder } from '@angular/forms';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { WindowService } from '../window.service';
 import firebase from 'firebase/compat/app';
+import { Router } from "@angular/router";
+
 
 
 
@@ -21,6 +23,7 @@ export class FormComponent implements OnInit {
       private formBuilder: FormBuilder,
       private auth: AngularFireAuth,
       private win: WindowService,
+      private router: Router,
       ) { }
 
   states = ["Delhi","Maharashtra","Haryana", "Uttar Pradesh"]
@@ -114,7 +117,33 @@ export class FormComponent implements OnInit {
       name: "PAI",
       desc: "What is your Personal Annual Income? (in Rupees)",
       isHidden: true,
-      type: "number",
+      type: "number"
+      /*options: [
+        {
+          desc: "Less than 50,000",
+          value: "<50000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "50000-100000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "100000-150000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "150000-200000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "200000-250000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "250000-300000"
+        }
+      ]*/
     },
     {
       name: "Aadhar",
@@ -203,16 +232,52 @@ export class FormComponent implements OnInit {
       isHidden: true,
       options: [
         {
-          desc: "Unemployed",
-          value: "Unemployed"
-        },
-        {
-          desc: "Student",
-          value: "Student"
-        },
-        {
           desc: "Construction Worker",
           value: "Construction Worker"
+        },
+        {
+          desc: "Farmer",
+          value: "Farmer"
+        },
+        {
+          desc: "Animal Husbandry",
+          value: "Animal Husbandry"
+        },
+        {
+          desc: "Domestic Worker",
+          value: "Domestic Worker"
+        },
+        {
+          desc: "Self Employed",
+          value: "Self Employed"
+        },
+        {
+          desc: "Electrician",
+          value: "Electrician"
+        },
+        {
+          desc: "Plumber",
+          value: "Plumber"
+        },
+        {
+          desc: "Carpenter",
+          value: "Carpenter"
+        },
+        {
+          desc: "Taxi Driver",
+          value: "Taxi Driver"
+        },
+        {
+          desc: "Teacher",
+          value: "Teacher"
+        },
+        {
+          desc: "Sanitation Worker",
+          value: "Sanitation Worker"
+        },
+        {
+          desc: "Others",
+          value: "Others"
         },
       ]
     },
@@ -222,16 +287,52 @@ export class FormComponent implements OnInit {
       isHidden: true,
       options: [
         {
-          desc: "Unemployed",
-          value: "Unemployed"
-        },
-        {
-          desc: "Student",
-          value: "Student"
-        },
-        {
           desc: "Construction Worker",
           value: "Construction Worker"
+        },
+        {
+          desc: "Farmer",
+          value: "Farmer"
+        },
+        {
+          desc: "Animal Husbandry",
+          value: "Animal Husbandry"
+        },
+        {
+          desc: "Domestic Worker",
+          value: "Domestic Worker"
+        },
+        {
+          desc: "Self Employed",
+          value: "Self Employed"
+        },
+        {
+          desc: "Electrician",
+          value: "Electrician"
+        },
+        {
+          desc: "Plumber",
+          value: "Plumber"
+        },
+        {
+          desc: "Carpenter",
+          value: "Carpenter"
+        },
+        {
+          desc: "Taxi Driver",
+          value: "Taxi Driver"
+        },
+        {
+          desc: "Teacher",
+          value: "Teacher"
+        },
+        {
+          desc: "Sanitation Worker",
+          value: "Sanitation Worker"
+        },
+        {
+          desc: "Others",
+          value: "Others"
         },
       ]
     },
@@ -265,6 +366,32 @@ export class FormComponent implements OnInit {
       desc: "Family Annual Income?",
       isHidden: true,
       type: "number"
+      /*options: [
+        {
+          desc: "Less than 50,000",
+          value: "<50000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "50000-100000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "100000-150000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "150000-200000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "200000-250000"
+        },
+        {
+          desc: "50,000 to 1,00,000",
+          value: "250000-300000"
+        }
+      ]*/
     },
     {
       name: "voterId",
@@ -298,18 +425,9 @@ export class FormComponent implements OnInit {
     },
     {
       name: "percentageOfDisability",
-      desc: "Percentage of Disability?",
+      desc: "Percentage of Disability? (in %)",
       isHidden: true,
-      options: [
-        {
-          desc: "YES",
-          value: "true"
-        },
-        {
-          desc: "NO",
-          value: "false"
-        }
-      ]
+      type: "number"
     },
     {
       name: "qualification",
@@ -593,7 +711,7 @@ export class FormComponent implements OnInit {
   }
 
   checkLast(i:any){
-    console.log(i);
+    //console.log(i);
     if(i+1 == this.questions.length){
       this.done = true;
     }
@@ -604,9 +722,10 @@ export class FormComponent implements OnInit {
     this.firestore
     .collection("user")
     .add(this.userData.value)
-    .then(function(docRef:any) {
+    .then((docRef:any) => {
        console.log(docRef.id);
        console.log("Submitted");
+       this.router.navigate(["results"], { queryParams: {id: docRef.id}});
     })
     .catch((error:any)=>{
       console.log(error);

@@ -15,13 +15,16 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { DbService } from './db.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResultsComponent } from './results/results.component';
+import { AddExcelComponent } from './add-excel/add-excel.component';
+import { AngularFireStorageModule } from "@angular/fire/compat/storage";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
-    ResultsComponent
+    ResultsComponent,
+    AddExcelComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { ResultsComponent } from './results/results.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireStorageModule
   ],
   exports: [
     AngularFireAuthModule,
